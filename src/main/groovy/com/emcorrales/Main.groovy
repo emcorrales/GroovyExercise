@@ -3,6 +3,9 @@ package com.emcorrales
 import groovy.io.FileType
 import java.time.LocalDateTime
 
+
+class GroovyExercise {
+
 static void main(String[] args) {
     // End program with a message if arguments are invalid.
     if (args.length<3) {
@@ -61,4 +64,6 @@ static void main(String[] args) {
     } catch (Exception e){
         logger e.getMessage()
     }
+}
+
 }
