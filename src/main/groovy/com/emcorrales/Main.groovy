@@ -1,6 +1,7 @@
 package com.emcorrales
 
 import groovy.io.FileType
+import java.time.LocalDateTime
 
 static void main(String[] args) {
     // End program with a message if arguments are invalid.
@@ -27,23 +28,34 @@ static void main(String[] args) {
         return
     }
 
+    File logFile
+    if (args.length == 4) {
+        logFile = new File(args[3])
+    }
+
     // Find all the txt files inside the directory and its subdirectories.
     try {
         dir.eachFileRecurse(FileType.FILES) {
             if(it.name.endsWith('.txt')) {
-                println it
-                File out = new File(it.absolutePath)
-                String line
-                it.withReader {
-                    while ((line = it.readLine()) != null){
-                        def update = out.text.replaceAll(oldText, newText)
-                        println(update)
-                        out.text = update
-                    }
+                def path = it.absolutePath
+                logFile.append LocalDateTime.now().toString() + "\tOpening " + path + "\n"
+                println LocalDateTime.now().toString() + "\tOpening " + path + "\n"
+
+                File out = new File(path)
+                def update = out.text.replaceAll(oldText) {
+                    println  LocalDateTime.now().toString() + "\t" + "Replacing " + it + " with " + newText + "\n"
+                    logFile.append LocalDateTime.now().toString() + "\t" + "Replacing " + it + " with " + newText + "\n"
+                    it = newText
                 }
+
+                out.text = update
+                logFile.append LocalDateTime.now().toString() + "\tClosing " + path + "\n"
+                println LocalDateTime.now().toString() + "\tClosing " + path + "\n"
+
             }
         }
     } catch (Exception e){
-        println(e.getMessage())
+        println e.getMessage()
+        logFile.append LocalDateTime.now().toString() + "\t" + e.getMessage() + "\n"
     }
 }
