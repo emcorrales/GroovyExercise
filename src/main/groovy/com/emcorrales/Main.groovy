@@ -1,5 +1,7 @@
 package com.emcorrales
 
+import groovy.io.FileType
+
 static void main(String[] args) {
     // End program with a message if arguments are invalid.
     if (args.length<3) {
@@ -19,7 +21,17 @@ static void main(String[] args) {
     def oldText = args[1]
     def newText = args[2]
 
-    validatePath(path)
+    File dir = validatePath(path)
+    try {
+        dir.eachFileRecurse(FileType.FILES) {
+            if(it.name.endsWith('.txt')) {
+                println it
+            }
+        }
+    }catch (Exception e){
+        println(e.getMessage())
+    } finally {}
+
     validateOldText(oldText)
     validateNewText(newText)
 }
