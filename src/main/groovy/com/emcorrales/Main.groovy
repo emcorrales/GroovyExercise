@@ -27,6 +27,7 @@ static void main(String[] args) {
         return
     }
 
+    // Find all the txt files inside the directory and its subdirectories.
     try {
         dir.eachFileRecurse(FileType.FILES) {
             if(it.name.endsWith('.txt')) {
@@ -35,11 +36,10 @@ static void main(String[] args) {
                 String line
                 it.withReader {
                     while ((line = it.readLine()) != null){
-                        def pattern = oldText
-                        def match = (line =~ pattern)
+                        def match = (line =~ oldText)
                         if(match.find()){
                             def str = match.group()
-                            def update = out.text.replaceAll(pattern, newText)
+                            def update = out.text.replaceAll(oldText, newText)
                             println(update)
                             out.text = update
                         }
