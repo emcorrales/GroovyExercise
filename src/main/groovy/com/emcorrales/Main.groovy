@@ -17,11 +17,16 @@ static void main(String[] args) {
         return
     }
 
-    def path = args[0]
+    File dir = new File(args[0])
     def oldText = args[1]
     def newText = args[2]
 
-    File dir = validatePath(path)
+    // Do not proceed if the existing the first argument is not a valid directory.
+    if(!dir.isDirectory()) {
+        println "Invalid argument. Please enter a directory path as your first argument."
+        return
+    }
+
     try {
         dir.eachFileRecurse(FileType.FILES) {
             if(it.name.endsWith('.txt')) {
@@ -43,41 +48,7 @@ static void main(String[] args) {
                 }
             }
         }
-    }catch (Exception e){
+    } catch (Exception e){
         println(e.getMessage())
-    } finally {}
-
-    validateOldText(oldText)
-    validateNewText(newText)
-}
-
-def validatePath(path) {
-    // Check if the sourcePath is not null.
-    if(path == null){
-        println "Invalid argument. The value of sourcePath is null."
-        return false
-    }
-
-    // Check if first argument is a directory
-    File dir = new File(path)
-    if(!dir.isDirectory()) {
-        println "Invalid argument. Please enter a directory as your first argument."
-        return false
-    }
-
-    return dir;
-}
-
-def validateOldText(text) {
-    if(text == null){
-        println "Invalid argument. The value of text is null."
-        return false
-    }
-}
-
-def validateNewText(text) {
-    if(text == null){
-        println "Invalid argument. The value of text is null."
-        return false
     }
 }
