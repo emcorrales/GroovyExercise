@@ -16,7 +16,12 @@ static void main(String[] args) {
     }
 
     def path = args[0]
+    def oldText = args[1]
+    def newText = args[2]
+
     validatePath(path)
+    validateOldText(oldText)
+    validateNewText(newText)
 }
 
 def validatePath(path) {
@@ -34,4 +39,18 @@ def validatePath(path) {
     }
 
     return dir;
+}
+
+def validateOldText(text) {
+    if(text == null){
+        println "Invalid argument. The value of text is null."
+        return false
+    }
+}
+
+def validateNewText(text) {
+    if(text == null){
+        println "Invalid argument. The value of text is null."
+        return false
+    }
 }
