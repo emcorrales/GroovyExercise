@@ -26,6 +26,21 @@ static void main(String[] args) {
         dir.eachFileRecurse(FileType.FILES) {
             if(it.name.endsWith('.txt')) {
                 println it
+                File out = new File(it.absolutePath)
+                String line
+                it.withReader {
+                    while ((line = it.readLine()) != null){
+                        def pattern = oldText
+                        def match = (line =~ pattern)
+                        if(match.find()){
+                            def str = match.group()
+                            def update = out.text.replaceAll(pattern, newText)
+                            println(update)
+                            out.text = update
+                        }
+                    }
+
+                }
             }
         }
     }catch (Exception e){
