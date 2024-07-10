@@ -14,5 +14,24 @@ static void main(String[] args) {
                 "list of which files were modified (logging)."
         return
     }
-    println "Hello world!"
+
+    def path = args[0]
+    validatePath(path)
+}
+
+def validatePath(path) {
+    // Check if the sourcePath is not null.
+    if(path == null){
+        println "Invalid argument. The value of sourcePath is null."
+        return false
+    }
+
+    // Check if first argument is a directory
+    File dir = new File(path)
+    if(!dir.isDirectory()) {
+        println "Invalid argument. Please enter a directory as your first argument."
+        return false
+    }
+
+    return dir;
 }
