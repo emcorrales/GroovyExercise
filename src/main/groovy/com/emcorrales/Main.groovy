@@ -36,15 +36,10 @@ static void main(String[] args) {
                 String line
                 it.withReader {
                     while ((line = it.readLine()) != null){
-                        def match = (line =~ oldText)
-                        if(match.find()){
-                            def str = match.group()
-                            def update = out.text.replaceAll(oldText, newText)
-                            println(update)
-                            out.text = update
-                        }
+                        def update = out.text.replaceAll(oldText, newText)
+                        println(update)
+                        out.text = update
                     }
-
                 }
             }
         }
