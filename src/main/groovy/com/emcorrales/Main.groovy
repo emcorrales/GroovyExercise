@@ -28,34 +28,37 @@ static void main(String[] args) {
         return
     }
 
-    File logFile
-    if (args.length == 4) {
-        logFile = new File(args[3])
+    // Always write logs on the console.
+    def consoleLogger =  { String message -> println LocalDateTime.now().toString() + "\t" + message }
+
+    // Optional logging on log file.
+    def fileLogger = { String message, logger = consoleLogger ->
+        logger message
+        File logFile = new File(args[3])
+        logFile.append LocalDateTime.now().toString() + "\t" + message + "\n"
     }
+
+    // Write logs to file and console if log file path is provided else show logs only on console
+    def logger = args.length >= 4? fileLogger:consoleLogger
 
     // Find all the txt files inside the directory and its subdirectories.
     try {
         dir.eachFileRecurse(FileType.FILES) {
             if(it.name.endsWith('.txt')) {
                 def path = it.absolutePath
-                logFile.append LocalDateTime.now().toString() + "\tOpening " + path + "\n"
-                println LocalDateTime.now().toString() + "\tOpening " + path + "\n"
+                logger "Opening " + path
 
                 File out = new File(path)
                 def update = out.text.replaceAll(oldText) {
-                    println  LocalDateTime.now().toString() + "\t" + "Replacing " + it + " with " + newText + "\n"
-                    logFile.append LocalDateTime.now().toString() + "\t" + "Replacing " + it + " with " + newText + "\n"
+                    logger "Replacing " + it + " with " + newText
                     it = newText
                 }
 
                 out.text = update
-                logFile.append LocalDateTime.now().toString() + "\tClosing " + path + "\n"
-                println LocalDateTime.now().toString() + "\tClosing " + path + "\n"
-
+                logger "Closing " + path
             }
         }
     } catch (Exception e){
-        println e.getMessage()
-        logFile.append LocalDateTime.now().toString() + "\t" + e.getMessage() + "\n"
+        logger e.getMessage()
     }
 }
