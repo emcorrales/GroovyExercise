@@ -65,13 +65,10 @@ class GroovyExercise {
         logger "Backup file " + backupFilename + " has been created."
     }
 
-
-    // TODO: Implement logging the position position of the match
     def static replaceAllText(File file, String oldText, newText, logger){
         def update = file.text.replaceAll(oldText) {
             logger "Replacing " + oldText + " with " + newText
         }
         file.text = update
     }
-
 }
