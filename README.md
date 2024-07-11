@@ -24,21 +24,19 @@ For Windows
 ```
 
 
-Run it with arguments:
+Run it with the three ***required*** arguments:
 
 ```
 ./gradlew run ~\sample-files happy sad
 ```
- or
+
+***~\sample-files*** is the first argument and is the directory for text files.
+***happy*** is the second argument and is the text that will be searched
+and replaced by the third argument ***sad***.
+
+ or with the ***optional*** fourth argument.
 ```
 ./gradlew run ~\sample-files happy sad ~\sample-files\logs
 ```
 
-"~\sample-files" is the first argument and is the directory for text files.
-"happy" is the second argument and is the text that will be searched
-and replaced by the third argument "sad".
-
-The first three arguments are required.
-
-"~\sample-files\logs" is the fourth argument and is optional.
-This is where the logs will be written.
+***~\sample-files\logs*** is the fourth argument and is a file path to where the logs will be written.
