@@ -7,16 +7,17 @@ You may check the version of JRE by running:
 java --version
 ```
 
-Execute the command below to build and run:
 
-For Linux/MacOS
+Go to the project root directory and execute the command below to build and run:
+
+For Linux/MacOS:
 ```
 ./gradlew clean
 ./gradlew build
 ./gradlew run
 ```
 
-For Windows
+For Windows:
 ```
 .\gradlew clean
 .\gradlew build
