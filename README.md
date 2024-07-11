@@ -3,19 +3,20 @@ and short available personal time.
 If you looked at this project before July 12 and isn't satisfied,
 please consider looking at it again at July 12. Thank you.
 
+This requires a JRE installed to run.
 This app is compatible with JRE 8 to JRE 17
 
 Execute the command below to build and run:
 
-gradlew clean
-gradlew build
-gradlew run
+./gradlew clean
+./gradlew build
+./gradlew run
 
 Run it with arguments:
 
 Example:
 
-gradlew run ~\sample-files happy sad ~\sample-files\logs
+./gradlew run ~\sample-files happy sad ~\sample-files\logs
 
 "~\sample-files" is the first argument and is the directory for text files.
 "happy" is the second argument and is the text that will be searched
