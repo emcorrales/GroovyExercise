@@ -43,23 +43,9 @@ class GroovyExercise {
         // Find all the txt files inside the directory and its subdirectories.
         try {
             dir.eachFileRecurse(FileType.FILES) {
-                if (it.name.endsWith('.txt')) {
-                    def path = it.absolutePath
-                    logger "Opening " + path
-
-                    File out = new File(path)
-                    if(out.text.contains(oldText)){
-                        logger "Match found on " + path
-                        backupFile(out, logger)
-                    }
-
-                    def update = out.text.replaceAll(oldText) {
-                        logger "Replacing " + it + " with " + newText
-                        it = newText
-                    }
-
-                    out.text = update
-                    logger "Closing " + path
+                if (it.name.endsWith('.txt') && it.text.contains(oldText)) {
+                    backupFile(it, logger)
+                    replaceAllText(it, oldText, newText, logger)
                 }
             }
         } catch (Exception e) {
@@ -77,6 +63,15 @@ class GroovyExercise {
         backupFile.createNewFile()
         backupFile.text = file.text
         logger "Backup file " + backupFilename + " has been created."
+    }
+
+
+    // TODO: Implement logging the position position of the match
+    def static replaceAllText(File file, String oldText, newText, logger){
+        def update = file.text.replaceAll(oldText) {
+            logger "Replacing " + oldText + " with " + newText
+        }
+        file.text = update
     }
 
 }
