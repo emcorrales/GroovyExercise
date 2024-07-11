@@ -52,6 +52,11 @@ class GroovyExercise {
                     logger "Opening " + path
 
                     File out = new File(path)
+                    if(out.text.contains(oldText)){
+                        logger "Match found on " + path
+                        backupFile(out, logger)
+                    }
+
                     def update = out.text.replaceAll(oldText) {
                         logger "Replacing " + it + " with " + newText
                         it = newText
@@ -62,8 +67,20 @@ class GroovyExercise {
                 }
             }
         } catch (Exception e) {
-            logger e.getMessage()
+            logger "Error has occurred:" + e.getMessage()
         }
+    }
+
+    // Backup the target file with a new file.
+    // The generated name of the backup file would include a timestamp and a '.bak' extension file
+    def static backupFile(File file, logger) {
+        def timestamp = new Date().getTime()
+        def backupFilename = file.absolutePath + timestamp + ".bak"
+        logger "Creating backup file " + backupFilename
+        def backupFile = new File(backupFilename)
+        backupFile.createNewFile()
+        backupFile.text = file.text
+        logger "Backup file " + backupFilename + " has been created."
     }
 
 }
