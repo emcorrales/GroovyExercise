@@ -1,9 +1,4 @@
-Note: I did this project on rush due to time constraints for the exam
-and short available personal time.
-If you looked at this project before July 12 and isn't satisfied,
-please consider looking at it again at July 12. Thank you.
-
-This requires a JRE installed to run.
+This app requires a JRE installed to run.
 This app is compatible with JRE 8 to JRE 17
 
 Execute the command below to build and run:
