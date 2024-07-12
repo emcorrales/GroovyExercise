@@ -67,6 +67,7 @@ class GroovyExercise {
     def static replaceAllText(File file, String oldText, newText, logger){
         def update = file.text.replaceAll(oldText) {
             logger "Replacing " + oldText + " with " + newText
+            it = newText
         }
         file.text = update
     }
