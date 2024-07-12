@@ -31,14 +31,13 @@ class GroovyExercise {
         def consoleLogger = { String message -> println LocalDateTime.now().toString() + "\t" + message }
 
         // Optional logging on log file.
-        def fileLogger = { String message, logger = consoleLogger ->
-            logger message
-            File logFile = new File(args[3])
-            logFile.append LocalDateTime.now().toString() + "\t" + message + "\n"
-        }
+        def fileLogger = { String logPath, String message ->
+            File logFile = new File(logPath)
+            logFile.append LocalDateTime.now().toString() + "\t" + message + "\n" }
 
-        // Write logs to file and console if log file path is provided else show logs only on console
-        def logger = args.length >= 4 ? fileLogger : consoleLogger
+        // Write logs to the console AND
+        // write logs to the logfile if its path as the fourth argument is provided.
+        def logger = args.length >= 4 ? fileLogger.curry(args[3]) << consoleLogger : consoleLogger
 
         // Find all the txt files inside the directory and its subdirectories.
         try {
