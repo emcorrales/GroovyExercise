@@ -37,7 +37,7 @@ class GroovyExercise {
         // Optional logging on log file.
         def fileLogger = { String logPath, String message ->
             File logFile = new File(logPath)
-            logFile.append LocalDateTime.now().toString() + "\t" + message + "\n"
+            logFile.append message + "\n"
         }
 
         // Write logs to the console AND
