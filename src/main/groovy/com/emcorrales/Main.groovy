@@ -45,6 +45,7 @@ class GroovyExercise {
         try {
             dir.eachFileRecurse(FileType.FILES) {
                 if (it.name.endsWith('.txt') && it.text.contains(oldText)) {
+                    logger "Match/matches found at " + it.absolutePath
                     backupFile(it, logger)
                     replaceAllText(it, oldText, newText, logger)
                 }
@@ -67,6 +68,7 @@ class GroovyExercise {
     }
 
     def static replaceAllText(File file, String oldText, newText, logger){
+        logger "Modifying " + file.absolutePath
         def update = file.text.replaceAll(oldText) {
             logger "Replacing " + oldText + " with " + newText
             it = newText
