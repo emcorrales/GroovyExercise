@@ -70,7 +70,7 @@ class GroovyExercise {
         logger "Backup file " + backupFilename + " has been created."
     }
 
-    def static replaceAllText(File file, String oldText, newText, logger){
+    def static replaceAllText(File file, String oldText, String newText, logger){
         logger "Modifying " + file.absolutePath
         def update = file.text.replaceAll(oldText) {
             logger "Replacing " + oldText + " with " + newText
